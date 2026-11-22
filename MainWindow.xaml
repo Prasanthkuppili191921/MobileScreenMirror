@@ -1,12 +1,181 @@
 ﻿<Window x:Class="MobileScreenMirror.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MobileScreenMirror"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Mobile Screen Mirror"
+        Height="650"
+        Width="850"
+        MinHeight="600"
+        MinWidth="750"
+        WindowStartupLocation="CenterScreen"
+        Background="#F3F5F9">
 
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,20">
+            <TextBlock Text="Mobile Screen Mirror"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="#172033"/>
+
+            <TextBlock Text="Wireless Android Connection"
+                       FontSize="14"
+                       Foreground="#687386"
+                       Margin="0,5,0,0"/>
+        </StackPanel>
+
+        <!-- Connection Settings -->
+        <Border Grid.Row="1"
+                Background="White"
+                CornerRadius="12"
+                Padding="20"
+                Margin="0,0,0,18">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Pairing -->
+                <StackPanel Grid.Column="0"
+                            Margin="0,0,20,0">
+
+                    <TextBlock Text="Wireless Pairing"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               Margin="0,0,0,15"/>
+
+                    <TextBlock Text="IP Address"/>
+                    <TextBox x:Name="PairIpTextBox"
+                             Height="35"
+                             Margin="0,5,0,12"
+                             Padding="8"
+                             Text="192.168.1.100"/>
+
+                    <TextBlock Text="Pairing Port"/>
+                    <TextBox x:Name="PairPortTextBox"
+                             Height="35"
+                             Margin="0,5,0,12"
+                             Padding="8"/>
+
+                    <TextBlock Text="Pairing Code"/>
+                    <PasswordBox x:Name="PairCodeBox"
+                                 Height="35"
+                                 Margin="0,5,0,15"
+                                 Padding="8"/>
+
+                    <Button Content="Pair Device"
+                            Height="40"
+                            Background="#2563EB"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Click="PairDevice_Click"/>
+                </StackPanel>
+
+                <!-- Connect -->
+                <StackPanel Grid.Column="1">
+
+                    <TextBlock Text="Wireless Connection"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               Margin="0,0,0,15"/>
+
+                    <TextBlock Text="IP Address"/>
+                    <TextBox x:Name="ConnectIpTextBox"
+                             Height="35"
+                             Margin="0,5,0,12"
+                             Padding="8"
+                             Text="192.168.1.100"/>
+
+                    <TextBlock Text="Debugging Port"/>
+                    <TextBox x:Name="ConnectPortTextBox"
+                             Height="35"
+                             Margin="0,5,0,15"
+                             Padding="8"/>
+
+                    <Button Content="Connect"
+                            Height="40"
+                            Background="#16A34A"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Margin="0,0,0,10"
+                            Click="ConnectDevice_Click"/>
+
+                    <Button Content="Disconnect"
+                            Height="40"
+                            Background="#DC2626"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Click="DisconnectDevice_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Devices -->
+        <Border Grid.Row="2"
+                Background="White"
+                CornerRadius="12"
+                Padding="20">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <DockPanel Margin="0,0,0,15">
+                    <TextBlock Text="Connected Devices"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Center"/>
+
+                    <Button Content="Refresh"
+                            Width="100"
+                            Height="32"
+                            DockPanel.Dock="Right"
+                            Click="RefreshDevices_Click"/>
+                </DockPanel>
+
+                <ListView x:Name="DevicesListView"
+                          Grid.Row="1"
+                          BorderThickness="0">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Device ID"
+                                           DisplayMemberBinding="{Binding DeviceId}"
+                                           Width="250"/>
+
+                            <GridViewColumn Header="Model"
+                                           DisplayMemberBinding="{Binding Model}"
+                                           Width="220"/>
+
+                            <GridViewColumn Header="Status"
+                                           DisplayMemberBinding="{Binding Status}"
+                                           Width="150"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </Border>
+
+        <!-- Status -->
+        <Border Grid.Row="3"
+                Background="#E8EDF5"
+                CornerRadius="8"
+                Padding="12"
+                Margin="0,15,0,0">
+
+            <TextBlock x:Name="StatusTextBlock"
+                       Text="Ready"
+                       Foreground="#334155"
+                       FontSize="13"/>
+        </Border>
     </Grid>
 </Window>

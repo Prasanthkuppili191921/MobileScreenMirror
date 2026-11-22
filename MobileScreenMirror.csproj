@@ -12,4 +12,12 @@
     <Folder Include="Views\" />
   </ItemGroup>
 
+
+	<ItemGroup>
+		<Content Include="platform-tools\**\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+
 </Project>
